@@ -3,25 +3,20 @@ const defs = document.getElementById("defs");
 const group = document.getElementById("textHeart");
 
 const MESSAGE = "Happy Birthday My Bhatijy";
-
-/* Repeat message around the heart */
-const REPEAT = `${MESSAGE}     ${MESSAGE}     ${MESSAGE}     ${MESSAGE}`;
-
+const REPEAT = `${MESSAGE}     ${MESSAGE}     ${MESSAGE}     ${MESSAGE}     ${MESSAGE}     ${MESSAGE}`;
 
 /* ==================================================
    HEART PATH
    ================================================== */
 
 function heartPath(scale = 1) {
-
   const pts = [];
 
   const cx = 250;
   const cy = 255;
 
-  for (let i = 0; i <= 320; i++) {
-
-    const t = (Math.PI * 2 * i) / 320;
+  for (let i = 0; i <= 400; i++) {
+    const t = (Math.PI * 2 * i) / 400;
 
     const x = 16 * Math.sin(t) ** 3;
 
@@ -37,68 +32,43 @@ function heartPath(scale = 1) {
     ]);
   }
 
-  let d =
-    `M ${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
+  let d = `M ${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
 
   for (let i = 1; i < pts.length; i++) {
-
-    d +=
-      ` L ${pts[i][0].toFixed(2)} ${pts[i][1].toFixed(2)}`;
+    d += ` L ${pts[i][0].toFixed(2)} ${pts[i][1].toFixed(2)}`;
   }
 
   return d;
 }
 
-
 /* ==================================================
-   TEXT ANIMATION
+   CREATE ANIMATION
    ================================================== */
 
-function makeAnimation(duration, delay) {
-
-  const animation =
-    document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "animate"
-    );
-
-  animation.setAttribute(
-    "attributeName",
-    "startOffset"
+function makeAnimation() {
+  const animation = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "animate"
   );
 
+  animation.setAttribute("attributeName", "startOffset");
   animation.setAttribute("from", "0%");
-
   animation.setAttribute("to", "100%");
-
-  animation.setAttribute("dur", duration);
-
-  animation.setAttribute("begin", delay);
-
-  animation.setAttribute(
-    "repeatCount",
-    "indefinite"
-  );
-
-  animation.setAttribute(
-    "calcMode",
-    "linear"
-  );
+  animation.setAttribute("dur", "22s");
+  animation.setAttribute("repeatCount", "indefinite");
+  animation.setAttribute("calcMode", "linear");
 
   return animation;
 }
-
 
 /* ==================================================
    BUILD HEART
    ================================================== */
 
 function buildHeart() {
-
-  /* Clear old text */
   group.innerHTML = "";
 
-  /* Glow effect */
+  /* Glow */
   defs.innerHTML = `
     <filter
       id="softGlow"
@@ -107,141 +77,76 @@ function buildHeart() {
       width="160%"
       height="160%"
     >
-
       <feGaussianBlur
         stdDeviation="0.8"
         result="blur"
       />
 
       <feMerge>
-
         <feMergeNode in="blur"/>
-
         <feMergeNode in="SourceGraphic"/>
-
       </feMerge>
-
     </filter>
   `;
 
+  /* One clean moving heart text */
 
-  /* ==================================================
-     TWO CLEAN TEXT LAYERS
-     ================================================== */
+  const pathId = "heartMovingPath";
 
-  const layers = [
+  const path = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "path"
+  );
 
-    {
-      scale: 1.00,
-      duration: "25s",
-      delay: "0s",
-      offset: "0%"
-    },
+  path.setAttribute("id", pathId);
+  path.setAttribute("d", heartPath(0.96));
+  path.setAttribute("fill", "none");
+  path.setAttribute("stroke", "none");
 
-    {
-      scale: 0.955,
-      duration: "25s",
-      delay: "-12.5s",
-      offset: "50%"
-    }
+  defs.appendChild(path);
 
-  ];
+  /* Text */
 
+  const text = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "text"
+  );
 
-  layers.forEach((layer, index) => {
+  text.classList.add("heartText");
 
-    /* Create heart path */
-    const pathId = `heartPath${index}`;
+  text.setAttribute("dy", "1.5");
 
-    const path =
-      document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "path"
-      );
+  /* Text path */
 
-    path.setAttribute(
-      "id",
-      pathId
-    );
+  const textPath = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "textPath"
+  );
 
-    path.setAttribute(
-      "d",
-      heartPath(layer.scale)
-    );
+  textPath.setAttribute("href", `#${pathId}`);
+  textPath.setAttribute("startOffset", "0%");
 
-    path.setAttribute(
-      "fill",
-      "none"
-    );
+  textPath.textContent = REPEAT;
 
-    path.setAttribute(
-      "stroke",
-      "none"
-    );
+  /* Animation */
 
-    defs.appendChild(path);
+  const animation = makeAnimation();
 
-
-    /* Create text */
-    const text =
-      document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "text"
-      );
-      text.style.fontSize = "14px";
-      text.style.fontWeight = "700";
-
-    text.classList.add("heartText");
-
-    text.setAttribute(
-      "dy",
-      index === 0 ? "1.5" : "-1.5"
-    );
-
-
-    /* Create text path */
-    const textPath =
-      document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "textPath"
-      );
-
-    textPath.setAttribute(
-      "href",
-      `#${pathId}`
-    );
-
-    textPath.setAttribute(
-      "startOffset",
-      layer.offset
-    );
-
-    textPath.textContent = REPEAT;
-
-
-    /* Add animation */
-    const animation =
-      makeAnimation(
-        layer.duration,
-        layer.delay
-      );
-
-    textPath.appendChild(animation);
-
-    text.appendChild(textPath);
-
-    group.appendChild(text);
-
-  });
-
+  textPath.appendChild(animation);
+  text.appendChild(textPath);
+  group.appendChild(text);
 }
 
-
 /* ==================================================
-   START
+   START HEART
    ================================================== */
 
 buildHeart();
+
+/* ==================================================
+   MUSIC
+   ================================================== */
+
 const music = document.getElementById("birthdayMusic");
 const musicBtn = document.getElementById("musicBtn");
 

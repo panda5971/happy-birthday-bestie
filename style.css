@@ -13,10 +13,11 @@ body {
 
 /* ==================================================
    BODY
-   ================================================== */
+================================================== */
 
 body {
   min-height: 100vh;
+  min-height: 100dvh;
   background: #000;
   position: relative;
   overflow-x: hidden;
@@ -24,29 +25,25 @@ body {
 
 /* ==================================================
    LEFT PHOTO
-   ================================================== */
+================================================== */
 
 body::before {
   content: "";
-
   position: fixed;
   z-index: 0;
-
   top: 0;
   left: 0;
 
-  width: 50%;
+  width: 50vw;
   height: 100vh;
+  height: 100dvh;
 
   background-image: url("./background-left.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 
-  /* Very light blur */
   filter: blur(1px);
-
-  /* Make photo clearly visible */
   opacity: 0.92;
 
   transform: scale(1.02);
@@ -54,29 +51,25 @@ body::before {
 
 /* ==================================================
    RIGHT PHOTO
-   ================================================== */
+================================================== */
 
 body::after {
   content: "";
-
   position: fixed;
   z-index: 0;
-
   top: 0;
   right: 0;
 
-  width: 50%;
+  width: 50vw;
   height: 100vh;
+  height: 100dvh;
 
   background-image: url("./background-right.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 
-  /* Very light blur */
   filter: blur(1px);
-
-  /* Make photo clearly visible */
   opacity: 0.92;
 
   transform: scale(1.02);
@@ -84,7 +77,7 @@ body::after {
 
 /* ==================================================
    MAIN PAGE
-   ================================================== */
+================================================== */
 
 .page {
   position: relative;
@@ -92,9 +85,9 @@ body::after {
 
   width: min(100%, 650px);
   min-height: 100vh;
+  min-height: 100dvh;
 
   margin: 0 auto;
-
   padding: 28px 18px 40px;
 
   text-align: center;
@@ -102,15 +95,13 @@ body::after {
 
 /* ==================================================
    TOP BIRTHDAY HEADING
-   ================================================== */
+================================================== */
 
 h1 {
   margin: 0 0 26px;
 
   font-size: clamp(24px, 4vw, 31px);
-
   font-weight: 700;
-
   line-height: 1.2;
 
   color: #ffffff;
@@ -134,13 +125,12 @@ h1 strong {
 
 /* ==================================================
    HEART FRAME
-   ================================================== */
+================================================== */
 
 .heart-frame {
   position: relative;
 
   width: min(100%, 430px);
-
   aspect-ratio: 1 / 1;
 
   margin: 0 auto;
@@ -149,7 +139,6 @@ h1 strong {
 
   overflow: hidden;
 
-  /* Slight transparent black */
   background: rgba(0, 0, 0, 0.18);
 
   z-index: 3;
@@ -161,11 +150,10 @@ h1 strong {
 
 /* ==================================================
    HEART SVG
-   ================================================== */
+================================================== */
 
 #heartSvg {
   position: absolute;
-
   inset: 0;
 
   width: 100%;
@@ -176,7 +164,7 @@ h1 strong {
 
 /* ==================================================
    MOVING TEXT ON HEART
-   ================================================== */
+================================================== */
 
 .heartText {
   font-family: Arial, Helvetica, sans-serif;
@@ -202,7 +190,7 @@ h1 strong {
 
 /* ==================================================
    CENTER CRIME PARTNER
-   ================================================== */
+================================================== */
 
 .center-name {
   position: absolute;
@@ -214,11 +202,9 @@ h1 strong {
   height: 100%;
 
   display: flex;
-
   flex-direction: column;
 
   align-items: center;
-
   justify-content: center;
 
   text-align: center;
@@ -228,16 +214,13 @@ h1 strong {
   pointer-events: none;
 }
 
-/* Crime + Partner */
 .center-name strong {
   display: block;
 
   margin: 0;
 
   font-size: clamp(28px, 7vw, 42px);
-
   font-weight: 700;
-
   line-height: 1.05;
 
   color: #ffffff;
@@ -248,7 +231,8 @@ h1 strong {
     0 0 28px rgba(30, 100, 255, 0.55);
 }
 
-/* Second line - Partner */
+/* Partner */
+
 .center-name strong:nth-child(2) {
   margin-top: 7px;
 
@@ -261,117 +245,21 @@ h1 strong {
 }
 
 /* ==================================================
-   MOBILE
-   ================================================== */
+   MUSIC BUTTON
+================================================== */
 
-@media (max-width: 600px) {
-
-  .page {
-    width: 100%;
-
-    padding: 20px 10px 30px;
-  }
-
-  /* Top heading */
-  h1 {
-    margin-bottom: 18px;
-
-    font-size: clamp(19px, 6vw, 27px);
-
-    line-height: 1.2;
-
-    white-space: nowrap;
-  }
-
-  /* Left photo */
-  body::before {
-    width: 50%;
-
-    height: 100vh;
-
-    filter: blur(1px);
-
-    opacity: 0.88;
-
-    background-position: center center;
-  }
-
-  /* Right photo */
-  body::after {
-    width: 50%;
-
-    height: 100vh;
-
-    filter: blur(1px);
-
-    opacity: 0.88;
-
-    background-position: center center;
-  }
-
-  /* Heart */
-  .heart-frame {
-    width: 92vw;
-
-    max-width: 430px;
-
-    aspect-ratio: 1 / 1;
-  }
-
-  /* Moving text */
-  .heartText {
-    font-size: 7px;
-
-    letter-spacing: 0.7px;
-  }
-
-  /* Center text */
-  .center-name strong {
-    font-size: 30px;
-  }
-
-  .center-name strong:nth-child(2) {
-    margin-top: 6px;
-  }
-}
-
-/* ==================================================
-   SMALL MOBILE
-   ================================================== */
-
-@media (max-width: 380px) {
-
-  .page {
-    padding-left: 7px;
-    padding-right: 7px;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-
-  .heart-frame {
-    width: 94vw;
-  }
-
-  .center-name strong {
-    font-size: 26px;
-  }
-
-  .heartText {
-  font-size: 10px;
-  letter-spacing: 0.8px;
-}
-}
 #musicBtn {
   position: fixed;
+
   bottom: 28px;
   left: 50%;
+
   transform: translateX(-50%);
 
   z-index: 50;
 
   padding: 13px 25px;
+
   min-width: 155px;
 
   border: 1px solid rgba(100, 190, 255, 0.8);
@@ -387,9 +275,12 @@ h1 strong {
   -webkit-backdrop-filter: blur(12px);
 
   color: #ffffff;
+
   font-family: Arial, Helvetica, sans-serif;
+
   font-size: 15px;
   font-weight: 700;
+
   letter-spacing: 0.5px;
 
   cursor: pointer;
@@ -404,7 +295,6 @@ h1 strong {
   animation: musicPulse 2.2s infinite;
 }
 
-/* Hover effect */
 #musicBtn:hover {
   transform: translateX(-50%) scale(1.08);
 
@@ -416,14 +306,17 @@ h1 strong {
     inset 0 0 18px rgba(80, 170, 255, 0.25);
 }
 
-/* Click effect */
 #musicBtn:active {
   transform: translateX(-50%) scale(0.96);
 }
 
-/* Soft glowing animation */
+/* ==================================================
+   MUSIC GLOW
+================================================== */
+
 @keyframes musicPulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow:
       0 0 8px rgba(60, 160, 255, 0.7),
       0 0 20px rgba(40, 120, 255, 0.35);
@@ -436,12 +329,157 @@ h1 strong {
   }
 }
 
-/* Mobile */
+/* ==================================================
+   MOBILE
+   Same desktop design - only scaled to screen
+================================================== */
+
 @media (max-width: 600px) {
+
+  .page {
+    width: 100%;
+
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    padding: 18px 10px 95px;
+  }
+
+  /* Heading */
+
+  h1 {
+    width: 100%;
+
+    margin: 0 0 20px;
+
+    padding: 0 5px;
+
+    font-size: clamp(20px, 6vw, 28px);
+
+    line-height: 1.2;
+
+    text-align: center;
+
+    white-space: normal;
+
+    overflow: visible;
+  }
+
+  /* LEFT PHOTO */
+
+  body::before {
+    width: 50vw;
+    height: 100vh;
+    height: 100dvh;
+
+    background-size: 100% 100%;
+
+    background-position: center center;
+
+    filter: blur(1px);
+
+    opacity: 0.92;
+
+    transform: scale(1.02);
+  }
+
+  /* RIGHT PHOTO */
+
+  body::after {
+    width: 50vw;
+    height: 100vh;
+    height: 100dvh;
+
+    background-size: 100% 100%;
+
+    background-position: center center;
+
+    filter: blur(1px);
+
+    opacity: 0.92;
+
+    transform: scale(1.02);
+  }
+
+  /* HEART */
+
+  .heart-frame {
+    width: min(430px, calc(100vw - 20px));
+
+    aspect-ratio: 1 / 1;
+
+    margin: 0 auto;
+  }
+
+  /* Moving text */
+
+  .heartText {
+    font-size: 10px;
+
+    letter-spacing: 0.8px;
+  }
+
+  /* Center text */
+
+  .center-name strong {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .center-name strong:nth-child(2) {
+    margin-top: 6px;
+  }
+
+  /* Music */
+
   #musicBtn {
-    bottom: 20px;
+    bottom: 18px;
+
     padding: 11px 21px;
+
     min-width: 145px;
+
     font-size: 14px;
+  }
+}
+
+/* ==================================================
+   SMALL PHONES
+================================================== */
+
+@media (max-width: 380px) {
+
+  .page {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  h1 {
+    font-size: 21px;
+
+    line-height: 1.2;
+
+    margin-bottom: 17px;
+  }
+
+  .heart-frame {
+    width: calc(100vw - 16px);
+  }
+
+  .center-name strong {
+    font-size: 27px;
+  }
+
+  .heartText {
+    font-size: 9px;
+
+    letter-spacing: 0.7px;
+  }
+
+  #musicBtn {
+    bottom: 15px;
+
+    min-width: 140px;
+
+    font-size: 13px;
   }
 }

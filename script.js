@@ -9,7 +9,7 @@ function heartPath() {
   const cx = 250;
   const cy = 255;
 
-  const scale = 10.5;
+  const scale = 13;
 
   for (let i = 0; i <= 500; i++) {
 

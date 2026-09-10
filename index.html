@@ -3,47 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday My Bhatijy</title>
+  <title>Happy Birthday Daniyal</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <audio id="birthdayMusic" loop>
-    <source src="birthday-song.mp3" type="audio/mpeg">
-</audio>
 
-<button id="musicBtn">🎵 Play Music</button>
-  <div class="page">
-    <h1><span><strong>🎂HaPpY BirtHDaY Daniyal🎂</strong></span></h1>
+<body>
+
+  <div class="background">
+    <img
+      src="background-left.jpg"
+      class="background-photo"
+      alt=""
+    >
+  </div>
+
+  <main class="page">
+
+    <h1>
+      🎂 <span>HaPpY BirthDaY</span> <strong>Daniyal</strong> 🎂
+    </h1>
 
     <div class="heart-frame">
-      <svg id="heartSvg" viewBox="0 0 500 500" aria-label="Happy Birthday My Bestie heart animation">
+
+      <svg
+        id="heartSvg"
+        viewBox="0 0 500 510"
+        preserveAspectRatio="xMidYMid meet"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <defs id="defs"></defs>
         <g id="textHeart"></g>
       </svg>
+
       <div class="center-name">
-  <strong>Crime</strong>
-  <strong>Partner💗</strong>
-</div>
-    </div>
-
-    <!-- <h2>Comment <span>"Love"</span> for Code</h2> -->
-
-    <!-- <div class="code-window">
-      <div class="window-bar">
-        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-        <span class="js">JS</span><span class="filename">style.css</span>
+        <strong>Crime</strong>
+        <strong>Partner💗</strong>
       </div>
-      <pre><code><span class="num">1</span> #ui .love_word {
-<span class="num">2</span>   color: #ea80b0;
-<span class="num">3</span>   font-size: 1.4rem;
-<span class="num">4</span>   transform: translateY(-100%) rotateZ(-30deg);
-<span class="num">5</span>   text-shadow: 0 0 10px #fff;
-<span class="num">6</span>   letter-spacing: 2px;
-<span class="num">7</span>   white-space: nowrap;
-<span class="num">8</span> }</code></pre>
+
     </div>
-  </div> -->
+
+  </main>
+
+  <audio id="birthdayMusic" loop preload="auto">
+    <source src="birthday-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="musicBtn">
+    🎵 Play Music
+  </button>
 
   <script src="script.js"></script>
+
 </body>
 </html>

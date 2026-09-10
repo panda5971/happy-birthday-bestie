@@ -1,22 +1,19 @@
-const svg = document.getElementById("heartSvg");
 const defs = document.getElementById("defs");
 const group = document.getElementById("textHeart");
 
 const MESSAGE = "Happy Birthday My Bhatijy";
-const REPEAT = `${MESSAGE}     ${MESSAGE}     ${MESSAGE}     ${MESSAGE}     ${MESSAGE}     ${MESSAGE}`;
 
-/* ==================================================
-   HEART PATH
-   ================================================== */
-
-function heartPath(scale = 1) {
-  const pts = [];
+function heartPath() {
+  const points = [];
 
   const cx = 250;
   const cy = 255;
 
-  for (let i = 0; i <= 400; i++) {
-    const t = (Math.PI * 2 * i) / 400;
+  const scale = 10.5;
+
+  for (let i = 0; i <= 500; i++) {
+
+    const t = (Math.PI * 2 * i) / 500;
 
     const x = 16 * Math.sin(t) ** 3;
 
@@ -26,49 +23,27 @@ function heartPath(scale = 1) {
       - 2 * Math.cos(3 * t)
       - Math.cos(4 * t);
 
-    pts.push([
-      cx + x * 12 * scale,
-      cy - y * 12 * scale
+    points.push([
+      cx + x * scale,
+      cy - y * scale
     ]);
   }
 
-  let d = `M ${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
+  let d =
+    `M ${points[0][0].toFixed(2)} ${points[0][1].toFixed(2)}`;
 
-  for (let i = 1; i < pts.length; i++) {
-    d += ` L ${pts[i][0].toFixed(2)} ${pts[i][1].toFixed(2)}`;
+  for (let i = 1; i < points.length; i++) {
+    d +=
+      ` L ${points[i][0].toFixed(2)} ${points[i][1].toFixed(2)}`;
   }
 
   return d;
 }
 
-/* ==================================================
-   CREATE ANIMATION
-   ================================================== */
-
-function makeAnimation() {
-  const animation = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "animate"
-  );
-
-  animation.setAttribute("attributeName", "startOffset");
-  animation.setAttribute("from", "0%");
-  animation.setAttribute("to", "100%");
-  animation.setAttribute("dur", "22s");
-  animation.setAttribute("repeatCount", "indefinite");
-  animation.setAttribute("calcMode", "linear");
-
-  return animation;
-}
-
-/* ==================================================
-   BUILD HEART
-   ================================================== */
-
 function buildHeart() {
+
   group.innerHTML = "";
 
-  /* Glow */
   defs.innerHTML = `
     <filter
       id="softGlow"
@@ -89,73 +64,87 @@ function buildHeart() {
     </filter>
   `;
 
-  /* One clean moving heart text */
+  const path =
+    document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
 
-  const pathId = "heartMovingPath";
-
-  const path = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "path"
-  );
-
-  path.setAttribute("id", pathId);
-  path.setAttribute("d", heartPath(0.96));
+  path.setAttribute("id", "heartPath");
+  path.setAttribute("d", heartPath());
   path.setAttribute("fill", "none");
   path.setAttribute("stroke", "none");
 
   defs.appendChild(path);
 
-  /* Text */
-
-  const text = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "text"
-  );
+  const text =
+    document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "text"
+    );
 
   text.classList.add("heartText");
 
-  text.setAttribute("dy", "1.5");
+  const textPath =
+    document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "textPath"
+    );
 
-  /* Text path */
-
-  const textPath = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "textPath"
-  );
-
-  textPath.setAttribute("href", `#${pathId}`);
+  textPath.setAttribute("href", "#heartPath");
   textPath.setAttribute("startOffset", "0%");
 
-  textPath.textContent = REPEAT;
+  textPath.textContent =
+    `${MESSAGE}     ${MESSAGE}     ${MESSAGE}     ${MESSAGE}`;
 
-  /* Animation */
+  const animation =
+    document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "animate"
+    );
 
-  const animation = makeAnimation();
+  animation.setAttribute(
+    "attributeName",
+    "startOffset"
+  );
+
+  animation.setAttribute("from", "0%");
+  animation.setAttribute("to", "100%");
+  animation.setAttribute("dur", "20s");
+  animation.setAttribute("repeatCount", "indefinite");
+  animation.setAttribute("calcMode", "linear");
 
   textPath.appendChild(animation);
   text.appendChild(textPath);
   group.appendChild(text);
 }
 
-/* ==================================================
-   START HEART
-   ================================================== */
-
 buildHeart();
 
-/* ==================================================
-   MUSIC
-   ================================================== */
+/* ================= MUSIC ================= */
 
-const music = document.getElementById("birthdayMusic");
-const musicBtn = document.getElementById("musicBtn");
+const music =
+  document.getElementById("birthdayMusic");
+
+const musicBtn =
+  document.getElementById("musicBtn");
 
 musicBtn.addEventListener("click", () => {
+
   if (music.paused) {
-    music.play();
-    musicBtn.textContent = "🔇 Stop Music";
+
+    music.play()
+      .then(() => {
+        musicBtn.textContent = "🔇 Stop Music";
+      })
+      .catch(() => {
+        musicBtn.textContent = "🎵 Play Music";
+      });
+
   } else {
+
     music.pause();
+
     musicBtn.textContent = "🎵 Play Music";
   }
 });
